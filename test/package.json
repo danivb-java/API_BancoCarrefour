@@ -1,0 +1,22 @@
+{
+  "name": "api-tests-serverest",
+  "version": "1.0.0",
+  "description": "Testes automatizados de API para ServeRest - Banco Carrefour",
+  "scripts": {
+    "test": "jest --runInBand --forceExit",
+    "test:verbose": "jest --runInBand --forceExit --verbose",
+    "allure:generate": "allure generate allure-results --clean -o allure-report",
+    "allure:serve": "allure serve allure-results",
+    "allure:open": "allure open allure-report",
+    "report": "npm test && npm run allure:generate"
+  },
+  "devDependencies": {
+    "jest": "^29.7.0",
+    "jest-junit": "^16.0.0",
+    "allure-jest": "^3.0.0"
+  },
+  "dependencies": {
+    "axios": "^1.7.2",
+    "uuid": "^9.0.0"
+  }
+}
