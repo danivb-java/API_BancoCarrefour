@@ -1,0 +1,70 @@
+name: API Tests - Banco Carrefour
+
+on:
+  push:
+    branches:
+      - main
+      - master
+      - develop
+  pull_request:
+    branches:
+      - main
+      - master
+  workflow_dispatch:
+
+jobs:
+  api-tests:
+    name: Run API Tests (JavaScript)
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js 20
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+          cache-dependency-path: package-lock.json
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Run API Tests
+        run: npm test
+        continue-on-error: true
+
+      - name: Upload Mochawesome Report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: mochawesome-report-${{ github.run_number }}
+          path: reports/mochawesome.html
+          retention-days: 30
+
+  deploy-report:
+    name: Deploy Report to GitHub Pages
+    needs: api-tests
+    runs-on: ubuntu-latest
+    if: always()
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Download Mochawesome Report artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: mochawesome-report-${{ github.run_number }}
+          path: mochawesome-report
+
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./mochawesome-report
+          destination_dir: reports
