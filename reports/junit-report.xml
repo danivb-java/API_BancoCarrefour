@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites name="jest tests" tests="38" failures="0" errors="0" time="16.673">
+  <testsuite name="POST /usuarios - Criar Usuário" errors="0" failures="0" skipped="0" timestamp="2026-10-30T10:51:01" time="4.577" tests="10">
+    <testcase classname="POST /usuarios - Criar Usuário" name="Criar usuário administrador e retornar 201 com _id" time="0.192">
+    </testcase>
+    <testcase classname="POST /usuarios - Criar Usuário" name="Criar usuário não-administrador e retornar 201 com _id" time="0.184">
+    </testcase>
+    <testcase classname="POST /usuarios - Criar Usuário" name="Retornar 400 ao criar usuário com email já cadastrado" time="0.176">
+    </testcase>
+    <testcase classname="POST /usuarios - Criar Usuário" name="Retornar 400 quando campo nome está ausente" time="0.195">
+    </testcase>
+    <testcase classname="POST /usuarios - Criar Usuário" name="Retornar 400 quando campo email está ausente" time="0.181">
+    </testcase>
+    <testcase classname="POST /usuarios - Criar Usuário" name="Retornar 400 quando campo password está ausente" time="0.183">
+    </testcase>
+    <testcase classname="POST /usuarios - Criar Usuário" name="Retornar 400 quando campo administrador está ausente" time="0.178">
+    </testcase>
+    <testcase classname="POST /usuarios - Criar Usuário" name="Retornar 400 com formato de email inválido" time="0.187">
+    </testcase>
+    <testcase classname="POST /usuarios - Criar Usuário" name="Retornar 400 ao enviar body vazio" time="0.174">
+    </testcase>
+    <testcase classname="POST /usuarios - Criar Usuário" name="Resposta de criação deve conter campos message e _id" time="0.538">
+    </testcase>
+  </testsuite>
+  <testsuite name="PUT /usuarios/{id} - Atualizar Usuário" errors="0" failures="0" skipped="0" timestamp="2026-10-30T10:51:05" time="4.019" tests="8">
+    <testcase classname="PUT /usuarios/{id} - Atualizar Usuário" name="Retornar 200 ao atualizar usuário existente com dados válidos" time="0.181">
+    </testcase>
+    <testcase classname="PUT /usuarios/{id} - Atualizar Usuário" name="Confirmar que os dados foram efetivamente atualizados no GET" time="0.178">
+    </testcase>
+    <testcase classname="PUT /usuarios/{id} - Atualizar Usuário" name="Retornar 201 e criar usuário ao fazer PUT com ID inexistente" time="0.18">
+    </testcase>
+    <testcase classname="PUT /usuarios/{id} - Atualizar Usuário" name="Retornar 400 ao atualizar email para um já utilizado por outro usuário" time="0.179">
+    </testcase>
+    <testcase classname="PUT /usuarios/{id} - Atualizar Usuário" name="Retornar 400 quando campo nome está ausente na atualização" time="0.18">
+    </testcase>
+    <testcase classname="PUT /usuarios/{id} - Atualizar Usuário" name="Retornar 400 quando campo email está ausente na atualização" time="0.18">
+    </testcase>
+    <testcase classname="PUT /usuarios/{id} - Atualizar Usuário" name="Resposta de atualização deve conter campo message" time="0.191">
+    </testcase>
+    <testcase classname="PUT /usuarios/{id} - Atualizar Usuário" name="Resposta de criação via PUT deve conter campos message e _id" time="0.524">
+    </testcase>
+  </testsuite>
+  <testsuite name="GET /usuarios - Listar Usuários" errors="0" failures="0" skipped="0" timestamp="2026-10-30T10:51:09" time="2.71" tests="9">
+    <testcase classname="GET /usuarios - Listar Usuários" name="Retornar 200 e lista de usuários com campo quantidade" time="0.201">
+    </testcase>
+    <testcase classname="GET /usuarios - Listar Usuários" name="Retornar 200 e quantidade igual ao tamanho do array de usuários" time="0.2">
+    </testcase>
+    <testcase classname="GET /usuarios - Listar Usuários" name="Filtrar usuários por nome e retornar apenas os correspondentes" time="0.183">
+    </testcase>
+    <testcase classname="GET /usuarios - Listar Usuários" name="Filtrar usuários por email e retornar os correspondentes" time="0.185">
+    </testcase>
+    <testcase classname="GET /usuarios - Listar Usuários" name="Filtrar usuários por administrador=true e retornar apenas administradores" time="0.196">
+    </testcase>
+    <testcase classname="GET /usuarios - Listar Usuários" name="Filtrar usuários por administrador=false e retornar apenas não-administradores" time="0.185">
+    </testcase>
+    <testcase classname="GET /usuarios - Listar Usuários" name="Filtrar por _id e retornar exatamente 1 usuário" time="0.183">
+    </testcase>
+    <testcase classname="GET /usuarios - Listar Usuários" name="Retornar 200 com quantidade 0 para nome inexistente" time="0.184">
+    </testcase>
+    <testcase classname="GET /usuarios - Listar Usuários" name="cada usuário da lista deve conter os campos obrigatórios" time="0.19">
+    </testcase>
+  </testsuite>
+  <testsuite name="DELETE /usuarios/{id} - Excluir Usuário" errors="0" failures="0" skipped="0" timestamp="2026-10-30T10:51:12" time="3.145" tests="5">
+    <testcase classname="DELETE /usuarios/{id} - Excluir Usuário" name="Retornar 200 e excluir usuário existente com sucesso" time="0.184">
+    </testcase>
+    <testcase classname="DELETE /usuarios/{id} - Excluir Usuário" name="Confirmar exclusão retornando 400 no GET do usuário deletado" time="0.185">
+    </testcase>
+    <testcase classname="DELETE /usuarios/{id} - Excluir Usuário" name="Retornar 200 com &quot;Nenhum registro excluído&quot; para ID inexistente" time="0.175">
+    </testcase>
+    <testcase classname="DELETE /usuarios/{id} - Excluir Usuário" name="Resposta de exclusão deve conter campo message" time="0.177">
+    </testcase>
+    <testcase classname="DELETE /usuarios/{id} - Excluir Usuário" name="Retornar 400 ao excluir usuário com carrinho cadastrado" time="0.914">
+    </testcase>
+  </testsuite>
+  <testsuite name="GET /usuarios/{id} - Buscar Usuário por ID" errors="0" failures="0" skipped="0" timestamp="2026-10-30T10:51:15" time="2.035" tests="6">
+    <testcase classname="GET /usuarios/{id} - Buscar Usuário por ID" name="Retornar 200 e dados do usuário ao buscar por ID válido" time="0.186">
+    </testcase>
+    <testcase classname="GET /usuarios/{id} - Buscar Usuário por ID" name="Retornar todos os campos obrigatórios do usuário" time="0.184">
+    </testcase>
+    <testcase classname="GET /usuarios/{id} - Buscar Usuário por ID" name="Retornar 400 ao buscar usuário com ID inexistente" time="0.182">
+    </testcase>
+    <testcase classname="GET /usuarios/{id} - Buscar Usuário por ID" name="Resposta de erro por ID inexistente deve conter campo message" time="0.178">
+    </testcase>
+    <testcase classname="GET /usuarios/{id} - Buscar Usuário por ID" name="Retornar campo administrador correto para usuário admin" time="0.181">
+    </testcase>
+    <testcase classname="GET /usuarios/{id} - Buscar Usuário por ID" name="Retornar email exatamente igual ao cadastrado" time="0.181">
+    </testcase>
+  </testsuite>
+</testsuites>
