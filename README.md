@@ -1,6 +1,6 @@
 # ServeRest API Tests — Banco Carrefour
 
-Projeto de automação de testes de API para cadastrar, consultar, atualizar e remover usuarios, cobrindo **100% dos endpoints de usuários** com **Jest + Axios + Allure Report**.
+Projeto de automação de testes de API para cadastrar, consultar, atualizar e remover usuários, cobrindo **100% dos endpoints de usuários** com **Jest + Axios + jest-html-reporters**.
 
 ---
 
@@ -11,23 +11,19 @@ Projeto de automação de testes de API para cadastrar, consultar, atualizar e r
 | Node.js | 20+ | Ambiente de execução |
 | Jest | 29.x | Test runner e asserções |
 | Axios | 1.7.x | Requisições HTTP |
-| allure-jest | 3.x | Integração Allure com Jest |
-| jest-junit | 16.x | Relatório JUnit XML para CI |
-| allure-commandline | latest | Geração do relatório HTML |
+| jest-html-reporters | 3.x | Geração de relatório HTML |
 
 ---
 
 ## Pré-requisitos
 
 - **Node.js 20+**: [Download](https://nodejs.org/)
-- **Allure CLI** (para visualizar relatórios): [Instalação](https://allurereport.org/docs/install/)
 
-### Verificar instalações
+### Verificar instalação
 
 ```bash
 node -v
 npm -v
-allure --version
 ```
 
 ---
@@ -35,7 +31,7 @@ allure --version
 ## Estrutura do Projeto
 
 ```
-test/
+API_BancoCarrefour/
 ├── .github/
 │   └── workflows/
 │       └── ci.yml                      # Pipeline GitHub Actions
@@ -48,8 +44,9 @@ test/
 │       ├── consultaUser.test.js        # GET /usuarios/{id}
 │       ├── atualizaUser.test.js        # PUT /usuarios/{id}
 │       └── deletaUser.test.js          # DELETE /usuarios/{id}
+├── reports/                            # Relatório HTML gerado após npm test
 ├── .gitignore
-├── jest.config.js                      # Configuração Jest + Allure + JUnit
+├── jest.config.js                      # Configuração Jest + jest-html-reporters
 ├── package.json
 └── README.md
 ```
@@ -59,7 +56,6 @@ test/
 ## Instalação
 
 ```bash
-cd test
 npm install
 ```
 
@@ -72,6 +68,8 @@ npm install
 ```bash
 npm test
 ```
+
+O relatório HTML é gerado automaticamente em `reports/mochawesome.html` ao final da execução.
 
 ### Executar com saída detalhada
 
@@ -87,24 +85,6 @@ npx jest src/tests/criaUsers.test.js
 npx jest src/tests/consultaUser.test.js
 npx jest src/tests/atualizaUser.test.js
 npx jest src/tests/deletaUser.test.js
-```
-
-### Executar e gerar relatório Allure
-
-```bash
-npm run report
-```
-
-### Visualizar relatório Allure no browser
-
-```bash
-npm run allure:serve
-```
-
-### Abrir relatório já gerado
-
-```bash
-npm run allure:open
 ```
 
 ---
@@ -173,36 +153,50 @@ npm run allure:open
 | 4 | Campo `message` presente na resposta | 200 |
 | 5 | Usuário com carrinho cadastrado | 400 |
 
-**Total: 37 testes — cobertura 100% dos endpoints de usuários**
+**Total: 38 testes — cobertura 100% dos endpoints de usuários**
 
 ---
 
-## Relatórios Gerados
+## Relatório Gerado
 
-| Tipo | Caminho | Usado em |
-|------|---------|----------|
-| Allure Results (JSON) | `allure-results/` | Geração do HTML |
-| Allure Report (HTML) | `allure-report/index.html` | Visualização local e CI |
-| JUnit XML | `reports/junit-report.xml` | GitHub Actions Summary |
+Após executar `npm test`, o relatório HTML é gerado em:
+
+```
+reports/
+├── mochawesome.html                    # Abrir no navegador
+└── jest-html-reporters-attach/
+    └── mochawesome/
+        └── index.js                   # Assets do relatório
+```
+
+> Abra `reports/mochawesome.html` no navegador para visualizar o relatório.
 
 ---
 
 ## Pipeline CI/CD (GitHub Actions)
 
-O arquivo [.github/workflows/ci.yml](.github/workflows/ci.yml) executa:
+O arquivo [.github/workflows/ci.yml](.github/workflows/ci.yml) executa automaticamente a cada push ou pull request:
 
 1. Checkout do repositório
 2. Configuração do Node.js 20 com cache npm
 3. `npm install` — instala dependências
-4. `npm test` — executa todos os testes
-5. Geração do relatório Allure HTML
-6. Publicação dos artefatos no GitHub Actions (30 dias)
-7. Deploy automático do relatório no GitHub Pages (branch `main`/`master`)
+4. `npm test` — executa todos os testes e gera o relatório HTML
+5. Publicação do relatório como artefato no GitHub Actions (30 dias de retenção)
+6. Deploy automático do relatório no GitHub Pages
 
-### Artefatos publicados no CI
+### Artefato publicado no CI
 
-- `allure-report-{run}` — Relatório HTML Allure completo
-- `junit-report-{run}` — Relatório JUnit XML
+- `mochawesome-report-{run}` — Relatório HTML completo (pasta `reports/`)
+
+### Relatório online (GitHub Pages)
+
+Após cada execução na branch `main` ou `master`, o relatório é publicado em:
+
+```
+https://danivb-java.github.io/API_BancoCarrefour/
+```
+
+> **Pré-requisito:** GitHub Pages deve estar habilitado em **Settings → Pages → Source: gh-pages / root**.
 
 ---
 
