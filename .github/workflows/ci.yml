@@ -62,9 +62,11 @@ jobs:
           name: mochawesome-report-${{ github.run_number }}
           path: mochawesome-report
 
+      - name: Rename report to index.html
+        run: mv mochawesome-report/mochawesome.html mochawesome-report/index.html
+
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v4
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./mochawesome-report
-          destination_dir: reports
